@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>Alyssa & Dominic</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="details.html">Details</a>
+    <a href="index.html" class="active">HOME</a>
+    <a href="rsvp.html">RSVP</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-overlay">
+      <h1>Alyssa & Dominic</h1>
+      <p>Together with their families</p>
+      <p>invite you to celebrate their wedding</p>
+      <p class="date">July 25th, 2026</p>
+      <a class="btn" href="rsvp.html">RSVP Now</a>
+    </div>
+  </header>
+
+
+
+  <!-- PHOTO GALLERY -->
+  <section class="gallery">
+    <h2>Our Story in Photos</h2>
+
+    <div class="grid">
+      <img src="forest engage.jpg" onclick="openLightbox(0)">
+      <img src="silhouette.jpg" onclick="openLightbox(1)">
+      <img src="moon.jpg" onclick="openLightbox(2)">
+      <img src="cave engage.jpg" onclick="openLightbox(3)">
+    </div>
+
+  </section>
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img">
+</div>
+
+<div id="lightbox" onclick="closeLightbox()">
+
+  <span class="arrow left" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</span>
+
+  <img id="lightbox-img">
+
+  <span class="arrow right" onclick="event.stopPropagation(); changeImage(1)">&#10095;</span>
+
+</div>
+</body>
+</html>
+
+<script>
+const images = [
+  "forest engage.jpg",
+  "silhouette.jpg",
+  "moon.jpg",
+  "cave engage.jpg"
+];
+
+let currentIndex = 0;
+
+function openLightbox(index) {
+  currentIndex = index;
+
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightbox-img");
+
+  img.src = images[currentIndex];
+  lightbox.style.display = "flex";
+
+  setTimeout(() => {
+    lightbox.classList.add("active");
+  }, 10);
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById("lightbox");
+
+  lightbox.classList.remove("active");
+
+  setTimeout(() => {
+    lightbox.style.display = "none";
+  }, 200);
+}
+
+function changeImage(direction) {
+  currentIndex += direction;
+
+  if (currentIndex < 0) {
+    currentIndex = images.length - 1;
+  } else if (currentIndex >= images.length) {
+    currentIndex = 0;
+  }
+
+  const img = document.getElementById("lightbox-img");
+  img.src = images[currentIndex];
+}
+</script>

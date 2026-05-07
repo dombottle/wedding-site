@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>RSVP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="details.html">Details</a>
+    <a href="index.html" class="logo">HOME</a>
+    <a href="rsvp.html" class="active">RSVP</a>
+  </nav>
+
+  <div class="page">
+
+    <div class="card">
+      <h1>RSVP</h1>
+      <p>Please respond by July 1st</p>
+
+      <form id="rsvpForm">
+
+        <label>Full Name</label>
+        <input type="text" id="name" required>
+
+        <label>Will you attend?</label>
+        <select id="attending">
+          <option value="Yes">Yes, I’ll be there</option>
+          <option value="No">No, I can’t make it</option>
+        </select>
+    
+        <label>Number of Guests Attending</label>
+        <input type="number" id="guests" min="1" max="10" value="1" required>
+        <small style="color:#777;">
+            Include yourself + anyone attending with you
+        </small>
+        
+
+        <button type="submit">Submit RSVP</button>
+
+      </form>
+
+      <p id="status"></p>
+    </div>
+
+  </div>
+
+  <script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbxH_R7nOZNsGW5XwdFoBtUTQgvkL2gMJN9D8sMThJUnKIg7RnqQ6Wem6xNzksooWYjD/exec";
+
+const form = document.getElementById("rsvpForm");
+const status = document.getElementById("status");
+const button = form.querySelector("button");
+
+let submitted = false;
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if (submitted) return; // prevents double submit
+  submitted = true;
+
+  button.disabled = true;
+  button.innerText = "Submitting...";
+
+const data = {
+  name: document.getElementById("name").value,
+  attending: document.getElementById("attending").value,
+  guests: document.getElementById("guests").value
+};
+
+  try {
+    await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    form.innerHTML = `
+      <div style="text-align:center;">
+        <h2>Thank you!</h2>
+        <p>Your RSVP has been received.</p>
+      </div>
+    `;
+
+  } catch (err) {
+    status.innerText = "Something went wrong. Please try again.";
+    button.disabled = false;
+    button.innerText = "Submit RSVP";
+    submitted = false;
+  }
+});
+</script>
+
+</body>
+</html>
