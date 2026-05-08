@@ -442,3 +442,17 @@ a:hover {
     font-size: 34px;
   }
 }
+
+.venmo-section {
+  margin-top: 35px;
+  text-align: center;
+}
+
+.venmo-section img {
+  width: 260px;
+  max-width: 100%;
+  border-radius: 14px;
+  background: white;
+  padding: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
